@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightYellow">
+
+    <TextView
+        android:id="@+id/ueberschriftTextViewID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp"
+        android:text="Profil erstellen"
+        android:textAlignment="textStart"
+        android:gravity="start"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nicknameUeberschriftID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/animalNicknameInputID"
+        android:layout_alignStart="@+id/animalNicknameInputID"
+        android:layout_below="@+id/ueberschriftTextViewID"
+        android:layout_marginTop="36dp"
+        android:text="Dein Nickname:"
+        android:textColor="@color/pink"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/animalNicknameInputID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ueberschriftTextViewID"
+        android:layout_alignRight="@+id/ueberschriftTextViewID"
+        android:layout_below="@+id/nicknameUeberschriftID"
+        android:hint="Gib deinen Nickname ein"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/geburtsdatumUeberschriftID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dialog_date_datePicker"
+        android:layout_alignLeft="@+id/dialog_date_datePicker"
+        android:layout_alignStart="@+id/dialog_date_datePicker"
+        android:text="Dein Geburtsdatum:"
+        android:textColor="@color/pink"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <DatePicker
+        android:id="@+id/dialog_date_datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weiterButtonID"
+        android:layout_alignLeft="@+id/nicknameUeberschriftID"
+        android:layout_alignStart="@+id/nicknameUeberschriftID"
+        android:layout_marginBottom="15dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:spinnersShown="true"></DatePicker>
+
+
+    <Button
+        android:id="@+id/weiterButtonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weiter"
+        android:background="@color/orange"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        android:hapticFeedbackEnabled="true"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

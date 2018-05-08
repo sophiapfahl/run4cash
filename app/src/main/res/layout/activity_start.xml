@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightYellow">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="false"
+        android:contentDescription="run4cash"
+        android:cropToPadding="false"
+        android:visibility="visible"
+        app:srcCompat="@drawable/logosmall" />
+
+
+    <Button
+        android:id="@+id/weiterButtonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weiter"
+        android:background="@color/orange"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        android:hapticFeedbackEnabled="true"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/nicknameInputId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weiterButtonID"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="63dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/pink" />
+
+    <TextView
+        android:id="@+id/inputUeberschriftID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nicknameInputId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Bitte gib deinen Namen ein:"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

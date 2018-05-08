@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.edvschule_plattling.trfi.testprojekt.TierErstellen"
+    android:background="@color/lightYellow">
+
+
+    <TextView
+        android:id="@+id/ueberschriftTextViewID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bitte wähle dein Tier"
+        android:textAlignment="textStart"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_alignLeft="@+id/horizontalScrollView"
+        android:layout_alignStart="@+id/horizontalScrollView"
+        android:layout_marginTop="14dp" />
+
+    <EditText
+        android:id="@+id/animalNicknameInputID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weiterButtonID"
+        android:layout_alignEnd="@+id/horizontalScrollView"
+        android:layout_alignLeft="@+id/horizontalScrollView"
+        android:layout_alignRight="@+id/horizontalScrollView"
+        android:layout_alignStart="@+id/horizontalScrollView"
+        android:layout_marginBottom="11dp"
+        android:hint="Gib einen Namen ein"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/weiterButtonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:text="Weiter"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/orange"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        android:hapticFeedbackEnabled="true"/>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="268dp"
+        android:layout_height="181dp"
+        android:layout_below="@+id/tierErstellenUeberschriftID"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:fillViewport="false"
+        android:scrollbarFadeDuration="@android:integer/config_longAnimTime"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="49dp"
+            android:background="@color/orange"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+
+            <ImageButton
+                android:id="@+id/imageBTNRabbit"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@drawable/rabbit"
+                android:cropToPadding="true"
+                android:scaleType="center" />
+
+            <ImageButton
+                android:id="@+id/imageBTNAnt"
+                android:layout_width="224dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.11"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ant"
+                android:cropToPadding="true"
+                android:scaleType="center" />
+
+            <ImageButton
+                android:id="@+id/imageBTNLizard"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@drawable/lizard"
+                android:cropToPadding="true"
+                android:scaleType="center" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/tierErstellenUeberschriftID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:text="Dein erstes Tier"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
