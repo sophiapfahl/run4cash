@@ -78,7 +78,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
      */
     public User loadData(){
         try {
-            return User.load((sharedPref.getString(jsonTag, "")));
+            return User.fromJSON((sharedPref.getString(jsonTag, "")));
         } catch(Exception e){
             return new User();
         }
@@ -98,11 +98,11 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         steps.setText("" + user.getSteps());
         capital.setText(user.umrechnen());
 
-        String animalMapKey = sharedPref.getString("animalNickname", "");
-        animalNickname.setText(animalMapKey);
+        //String animalMapKey = sharedPref.getString("animalNickname", "");
+        animalNickname.setText(user.getAktuellerBegleiter().getAnimalNickname());
 
 //        // Holt Bild ueber eine ID, nicht direkt ueber den Pfad (Endung ist so auch irrelevant!)
-        Drawable drawable = getResources().getDrawable(getResources().getIdentifier(user.getAnimals().get(animalMapKey).getPicName(), "drawable", getPackageName()));
+        Drawable drawable = getResources().getDrawable(getResources().getIdentifier(user.getAktuellerBegleiter().getPicName(), "drawable", getPackageName()));
         animalPic.setImageDrawable(drawable);
     }
 
@@ -113,7 +113,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
      */
     public void saveCompleteUser(){
         final SharedPreferences.Editor editor = sharedPref.edit();
-        String jsonUser = User.save(user);
+        String jsonUser = User.toJSON(user);
         editor.putString(jsonTag, jsonUser);
         editor.commit();
     }

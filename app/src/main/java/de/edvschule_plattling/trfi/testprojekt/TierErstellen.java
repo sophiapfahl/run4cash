@@ -17,7 +17,7 @@ import android.widget.Toast;
  */
 public class TierErstellen extends HilfsActivityClass {
 
-    private EditText animalNicknameInput;
+    //private EditText animalNicknameInput;
     private TextView resultTextView;
     private Button weiter;
     public static final String MY_PREF = "MYPREF";
@@ -36,7 +36,7 @@ public class TierErstellen extends HilfsActivityClass {
 
         sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         resultTextView = (TextView) findViewById(R.id.ueberschriftTextViewID);
-        animalNicknameInput = (EditText) findViewById(R.id.animalNicknameInputID);
+        //animalNicknameInput = (EditText) findViewById(R.id.animalNicknameInputID);
 
         // Dies sind ImageButtons, die mit einem Bild je nach Tier befuellt werden
         final ImageButton btnAnt = (ImageButton) findViewById(R.id.imageBTNAnt);
@@ -47,7 +47,7 @@ public class TierErstellen extends HilfsActivityClass {
 
         // Daten vom letzten Speichern laden
         user = new User();
-        if(User.load(sharedPref.getString(jsonTag, "")) != null){
+        if(User.fromJSON(sharedPref.getString(jsonTag, "")) != null){
             user = loadData();
         } else {
             Toast.makeText(getApplicationContext(), "Kein JSONObject gefunden!", Toast.LENGTH_SHORT).show();
@@ -58,24 +58,24 @@ public class TierErstellen extends HilfsActivityClass {
         btnRabbit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animal = Animal.RABBIT;
-                resultTextView.setText("Dein Tier: " + animal.getAnimalBreed());
+                user.setAktuellerBegleiter(user.getAnimals().get("Kaninchen"));
+                resultTextView.setText("Dein Tier: " + user.getAktuellerBegleiter().getAnimalNickname());
             }
         });
 
         btnAnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animal = Animal.ANT;
-                resultTextView.setText("Dein Tier: " + animal.getAnimalBreed());
+                user.setAktuellerBegleiter(user.getAnimals().get("Ameise"));
+                resultTextView.setText("Dein Tier: " + user.getAktuellerBegleiter().getAnimalNickname());
             }
         });
 
         btnLizard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animal = Animal.LIZARD;
-                resultTextView.setText("Dein Tier: " + animal.getAnimalBreed());
+                user.setAktuellerBegleiter(user.getAnimals().get("Echse"));
+                resultTextView.setText("Dein Tier: " + user.getAktuellerBegleiter().getAnimalNickname());
             }
         });
 
@@ -85,15 +85,15 @@ public class TierErstellen extends HilfsActivityClass {
             public void onClick(View view) {
                 final SharedPreferences.Editor editor = sharedPref.edit();
 
-                String animalNickname = animalNicknameInput.getText().toString();
-                // user.clearAnimals();
-                user.addAnimal(animalNickname, animal);
+                //String animalNickname = animalNicknameInput.getText().toString();
+                // Hier wird der Nickname des aktuellen Begleiters neu gesetzt
+                //user.replaceAnimal(user.getAktuellerBegleiter().getAnimalNickname(), animalNickname, user.getAktuellerBegleiter());
 
-                String json = User.save(user);
+                String json = User.toJSON(user);
 
                 // Dies braucht man, da der Nickname des Tiers der Schluessel in der Hashmap von Tieren
                 //  im User ist. Ohne diesen kann man sich das gewuenschte Tier nicht anzeigen lassen.
-                editor.putString("animalNickname", animalNickname);
+                //editor.putString("animalNickname", user.getAktuellerBegleiter().getAnimalNickname());
                 editor.putString(jsonTag, json);
 
                 editor.commit();    // Alles-oder-Nichts-Prinzip
@@ -115,18 +115,18 @@ public class TierErstellen extends HilfsActivityClass {
     //  Werte geladen werden koennen.
     public User loadData(){
         User u = new User();
-        u = User.load(sharedPref.getString(jsonTag, ""));
+        u = User.fromJSON(sharedPref.getString(jsonTag, ""));
 
-        String animalMapKey = sharedPref.getString("animalNickname", "");
+        //String animalMapKey = sharedPref.getString("animalNickname", "");
 
-        animalNicknameInput.setText(animalMapKey);
+        //animalNicknameInput.setText(animalMapKey);
 
         if(u.getAnimals() == null) {
             Toast.makeText(getApplicationContext(), "Tier ist null!", Toast.LENGTH_SHORT).show();
         } else if(u.getAnimals().isEmpty()){
             Toast.makeText(getApplicationContext(), "Es sind noch keine Tiere vorhanden!", Toast.LENGTH_SHORT).show();
         } else {
-            animal = u.getAnimals().get(animalMapKey);
+            animal = u.getAnimals().get(u.getAktuellerBegleiter().getAnimalNickname());
             resultTextView.setText("Dein Tier: " + animal.getAnimalBreed());
         }
 

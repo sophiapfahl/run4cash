@@ -22,8 +22,8 @@
         android:id="@+id/nicknameUeberschriftID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/animalNicknameInputID"
-        android:layout_alignStart="@+id/animalNicknameInputID"
+        android:layout_alignLeft="@+id/nicknameInputID"
+        android:layout_alignStart="@+id/nicknameInputID"
         android:layout_below="@+id/ueberschriftTextViewID"
         android:layout_marginTop="36dp"
         android:text="Dein Nickname:"
@@ -32,7 +32,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/animalNicknameInputID"
+        android:id="@+id/nicknameInputID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/ueberschriftTextViewID"

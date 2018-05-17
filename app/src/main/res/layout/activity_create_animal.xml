@@ -22,21 +22,21 @@
         android:layout_alignStart="@+id/horizontalScrollView"
         android:layout_marginTop="14dp" />
 
-    <EditText
-        android:id="@+id/animalNicknameInputID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/weiterButtonID"
-        android:layout_alignEnd="@+id/horizontalScrollView"
-        android:layout_alignLeft="@+id/horizontalScrollView"
-        android:layout_alignRight="@+id/horizontalScrollView"
-        android:layout_alignStart="@+id/horizontalScrollView"
-        android:layout_marginBottom="11dp"
-        android:hint="Gib einen Namen ein"
-        android:inputType="text"
-        android:textAlignment="center"
-        android:textColor="@color/pink"
-        android:textSize="20sp" />
+    <!--<EditText-->
+        <!--android:id="@+id/animalNicknameInputID"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/weiterButtonID"-->
+        <!--android:layout_alignEnd="@+id/horizontalScrollView"-->
+        <!--android:layout_alignLeft="@+id/horizontalScrollView"-->
+        <!--android:layout_alignRight="@+id/horizontalScrollView"-->
+        <!--android:layout_alignStart="@+id/horizontalScrollView"-->
+        <!--android:layout_marginBottom="11dp"-->
+        <!--android:hint="Gib einen Namen ein"-->
+        <!--android:inputType="text"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/pink"-->
+        <!--android:textSize="20sp" />-->
 
     <Button
         android:id="@+id/weiterButtonID"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,12 +37,13 @@ public class ProfilErstellen extends HilfsActivityClass {
 
         sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         weiter = (Button) findViewById(R.id.weiterButtonID);
-        nicknameInput = (EditText) findViewById(R.id.animalNicknameInputID);
+        nicknameInput = (EditText) findViewById(R.id.nicknameInputID);
         dp = (DatePicker) findViewById(R.id.dialog_date_datePicker);
 
         user = new User();
         // Moeglicher Fehler: Hier ist schon oft nicht in den if-Zweig gekommen. Das geht jetzt aber
-        if(User.load(sharedPref.getString(jsonTag, "")) != null){
+        if(User.fromJSON(sharedPref.getString(jsonTag, "")) != null){
+            Log.e("DEBUG", "find");
             user = loadData();
         } else {
             Toast.makeText(getApplicationContext(), "Kein JSONObject gefunden!", Toast.LENGTH_SHORT).show();
@@ -59,7 +61,8 @@ public class ProfilErstellen extends HilfsActivityClass {
                 Date newDateOfBirth = new Date(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
                 user.setDateOfBirth(newDateOfBirth);
 
-                String json = User.save(user);
+                Log.e("DEBUG", "User im ProfilErstellen: " + user.toString());
+                String json = User.toJSON(user);
                 editor.putString(jsonTag, json);
 
                 editor.commit();
@@ -75,7 +78,8 @@ public class ProfilErstellen extends HilfsActivityClass {
 
     // ggf. Standardwerte bzw. gespeicherte Werte vom letzten Oeffnen der App laden.
     public User loadData(){
-        user = User.load(sharedPref.getString(jsonTag, ""));
+        Log.e("DEBUG", "pref" + sharedPref.getString(jsonTag, ""));
+        user = User.fromJSON(sharedPref.getString(jsonTag, ""));
 
         nicknameInput.setText(user.getNickname());
 

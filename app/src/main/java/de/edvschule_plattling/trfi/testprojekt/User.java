@@ -39,6 +39,7 @@ public class User {
                     //  ist eben sehr fehleranfaellig.
                     // Oder jeder User kann nur ein Tier haben, das ist aber eigentlich nicht gewollt.
                     //  Dann koennte man ein Attribut Tier machen und ein Attribut Tiername.
+    private Animal aktuellerBegleiter = new Animal();
     private int steps = 0;      // Anzahl Schritte
     private int capital = 0;    // Anzahl Kupfermünzen
 
@@ -46,7 +47,7 @@ public class User {
 
 
     public User(){
-        animals.put("Jane", Animal.RABBIT);
+
     }
 
     public User(String pNickname, Date pBirthday){
@@ -64,7 +65,7 @@ public class User {
      * @param user Der User, der gespeichert werden soll
      * @return Der in einen JsonString umgewandelte User
      */
-    public static String save(User user){
+    public static String toJSON(User user){
         JSONObject joUser = new JSONObject();
         try {
             joUser.put("id", user.getID());
@@ -73,18 +74,20 @@ public class User {
             joUser.put("dateOfBirth", user.getDateOfBirth().getTime());
             joUser.put("steps", user.getSteps());
             joUser.put("capital", user.getCapital());
+            joUser.put("aktuellerBegleiter", user.getAktuellerBegleiter().getAnimalNickname());
 
             JSONArray jaAnimals = new JSONArray();
             int animalPos = 0; // Zaehlvariable (in JSONArrays koennen Elemente nur positionsabhaengig eingefuegt werden)
             // Hier werden alle Tiere des Users durchlaufen (sowohl Key als auch Value)
             for (Entry<String, Animal> es : user.animals.entrySet()) {
-                JSONObject joAnimal = new JSONObject();
-                joAnimal.put("animalNickname", es.getKey());    // Hier wird der Key gespeichert
-                joAnimal.put("ordinal", es.getValue().ordinal());   // Hier wird der Value gespeichert,
-                //  aber da Animal ein Enum ist, reicht es, wenn nur der ordinal (int) des Animals
-                //  gespeichert wird, statt der komplette Enumwert
-                jaAnimals.put(animalPos, joAnimal); // In das Array wird dann das JSONObject mit Key und Value gespeichert
-                animalPos++;    // Die Anzahl der Tiere wird erhoeht
+                JSONObject joAnimal = new JSONObject(Animal.toJSON(es.getValue()));
+//                joAnimal.put("animalNickname", es.getKey());    // Hier wird der Key gespeichert
+//                joAnimal.put("animalSteps", es.getValue().getSteps());   // Hier wird der Value gespeichert
+//                joAnimal.put("picName", es.getValue().getPicName());
+//                joAnimal.put("animalBreed", es.getValue().getAnimalBreed());
+
+                jaAnimals.put(animalPos++, joAnimal); // In das Array wird dann das JSONObject mit Key und Value gespeichert
+                  // Die Anzahl der Tiere wird erhoeht
             }
             joUser.put("animals", jaAnimals);
         } catch (JSONException e) {
@@ -100,7 +103,7 @@ public class User {
      * @param json Dies ist ein String, der ueber die SharedPreferences uebergeben wird. Der String beschreibt ein JSONObjekt.
      * @return Der User, der durch den uebergebenen String erstellt wird
      */
-    public static User load(String json) {
+    public static User fromJSON(String json) {
         try {
             JSONObject o = new JSONObject(json);
             User u = new User();
@@ -118,12 +121,14 @@ public class User {
             if(jaAnimals.length() > 0){
                 for(int i=0; i<jaAnimals.length(); i++){
                     JSONObject joAnimal = jaAnimals.getJSONObject(i);
-                    String animalNickname = joAnimal.getString("animalNickname");
-                    Animal animal = Animal.values()[joAnimal.getInt("ordinal")];
-                    jsonAnimals.put(animalNickname, animal);
+                    Animal animal = Animal.fromJSON(joAnimal.toString());
+                    jsonAnimals.put(animal.getAnimalNickname(), animal);
                 }
             }
             u.setAnimals(jsonAnimals);
+            Log.e("DEBUG", "HashMap: " + u.getAnimals().toString());
+
+            u.setAktuellerBegleiter(u.getAnimals().get(o.getString("aktuellerBegleiter")));
             return u;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -194,6 +199,14 @@ public class User {
         this.animals = animals;
     }
 
+    public Animal getAktuellerBegleiter() {
+        return aktuellerBegleiter;
+    }
+
+    public void setAktuellerBegleiter(Animal aktuellerBegleiter) {
+        this.aktuellerBegleiter = aktuellerBegleiter;
+    }
+
     /**
      * Methode zum Hinzufuegen eines Tiers. Diese Methode wird benoetigt, damit man auch von anderen
      *  Klassen aus moeglichst einfach Tiere hinzufuegen kann.
@@ -220,4 +233,17 @@ public class User {
         animals.put(newAnimalName, newAnimal);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", nickname='" + nickname + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", animals=" + animals +
+                ", aktuellerBegleiter=" + aktuellerBegleiter +
+                ", steps=" + steps +
+                ", capital=" + capital +
+                ", counter=" + counter +
+                '}';
+    }
 }
