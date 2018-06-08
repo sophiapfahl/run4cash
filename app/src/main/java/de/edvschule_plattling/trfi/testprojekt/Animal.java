@@ -1,13 +1,16 @@
 package de.edvschule_plattling.trfi.testprojekt;
 
+import android.media.Image;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Dieser Enum dient dazu, dem User verschiedene Tiere zur Auswahl zu stellen. Die Tiere haben eine Rasse
@@ -25,17 +28,22 @@ public class Animal {
 //    ANT("ant", "Ameise"),
 //    LIZARD("lizard", "Echse");
 
+    private static int LEVELGRENZE = 20;
+
 
     private String animalNickname = "";
     private String animalBreed = ""; // Tierrasse
     private String picName = "";
     private int steps = 0;
+    private List<String> fortschrittBilder = new ArrayList<>();
 
-    public Animal(String pAnimalNickname, String pAnimalBreed, String pPicName, int pSteps){
+
+    public Animal(String pAnimalNickname, String pAnimalBreed, String pPicName, int pSteps, List<String> pFortschrittBilder){
         this.animalNickname = pAnimalNickname;
         this.animalBreed = pAnimalBreed;
         this.picName = pPicName;
         this.steps = pSteps;
+        this.fortschrittBilder = pFortschrittBilder;
     }
 
     public Animal() {
@@ -88,6 +96,23 @@ public class Animal {
 
     public void setSteps(int steps) {
         this.steps = steps;
+
+
+        // TODO
+        // TODO: fortschrittbilder befüllen
+        if(this.fortschrittBilder.size() > 0 ) {
+            if (steps > 3*LEVELGRENZE) {
+                this.picName = this.fortschrittBilder.get(2);
+            } else {
+                if(steps > LEVELGRENZE) {
+                    this.picName = this.fortschrittBilder.get(1);
+                }
+            }
+        }
+
+
+
+
     }
 
     public String getAnimalBreed() {
@@ -104,6 +129,22 @@ public class Animal {
 
     public void setAnimalNickname(String animalNickname) {
         this.animalNickname = animalNickname;
+    }
+
+    public List<String> getFortschrittBilder() {
+        return fortschrittBilder;
+    }
+
+    public void setFortschrittBilder(List<String> fortschrittBilder) {
+        this.fortschrittBilder = fortschrittBilder;
+    }
+
+    public static int getLEVELGRENZE() {
+        return LEVELGRENZE;
+    }
+
+    public static void setLEVELGRENZE(int LEVELGRENZE) {
+        Animal.LEVELGRENZE = LEVELGRENZE;
     }
 
     @Override

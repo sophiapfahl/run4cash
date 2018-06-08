@@ -169,6 +169,8 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
             user.setCapital(user.getCapital() + 1);
             capital.setText(user.umrechnen());
         }
+
+        user.getAktuellerBegleiter().setSteps(user.getAktuellerBegleiter().getSteps() +1);   // Schritte des ausgewählten Tiers erhöhen
     }
 
 

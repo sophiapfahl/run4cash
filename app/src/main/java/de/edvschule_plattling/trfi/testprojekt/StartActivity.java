@@ -2,13 +2,18 @@ package de.edvschule_plattling.trfi.testprojekt;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.edvschule_plattling.trfi.testprojekt.User.fromJSON;
 
@@ -55,7 +60,7 @@ public class StartActivity extends HilfsActivityClass {
 
                 u = fromJSON(jsonUser);
 
-                Log.e("DEBUG", u.toString());
+           //     Log.e("DEBUG", u.toString());
 
 
                 Intent myIntent;
@@ -102,10 +107,23 @@ public class StartActivity extends HilfsActivityClass {
 
 
     public User loadAnimals(User u) {
+
         if (u.getAnimals().isEmpty()) {
-            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit", 0));
-            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0));
-            u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0));
+            List<String> bilder = new ArrayList<>();
+            bilder.add("rabbit");
+            bilder.add("ausbildungshase");
+            bilder.add("oberhase");
+
+            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit", 0, bilder));
+
+            bilder.clear();
+            bilder.add("ant");
+
+            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0, bilder));
+
+            bilder.clear();
+            bilder.add("lizard");
+            u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0, bilder));
         }
 
         return u;
