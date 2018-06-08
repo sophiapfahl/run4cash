@@ -1,6 +1,7 @@
 package de.edvschule_plattling.trfi.testprojekt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
@@ -8,6 +9,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
     private TextView steps;
     private TextView capital;
     private ImageView animalPic;
+    private Button zurTierauswahl;
     private SharedPreferences sharedPref;
     public static final String MY_PREF = "MYPREF";
     public static final String jsonTag = "jsonUser";
@@ -51,6 +55,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         animalNickname = (TextView) findViewById(R.id.tierNameID);
         animalPic = (ImageView) findViewById(R.id.tierBildID);
         capital = (TextView) findViewById(R.id.capitalID) ;
+        zurTierauswahl = (Button) findViewById(R.id.btnTierauswahlID);
 
         sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
 
@@ -69,6 +74,15 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
 
         // Hier wird der "fertige" User im UebersichtSharedPref gespeichert
         saveCompleteUser();
+
+        zurTierauswahl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getApplicationContext(), TierAuswaehlen.class);
+                startActivity(myIntent);
+            }
+        });
+
     }
 
 
