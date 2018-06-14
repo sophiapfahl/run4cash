@@ -26,7 +26,7 @@ public class StartActivity extends HilfsActivityClass {
     private SharedPreferences sharedPrefUebersicht;
     public static final String MY_PREF = "MYPREF";
     public static final String jsonTag = "jsonUser";
-
+// tmp
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
