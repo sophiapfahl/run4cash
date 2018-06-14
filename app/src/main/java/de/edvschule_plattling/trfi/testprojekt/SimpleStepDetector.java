@@ -66,7 +66,7 @@ public class SimpleStepDetector {
             lastStepTimeNs = timeNs;
         }
         oldVelocityEstimate = velocityEstimate;
-        // Test
+
     }
 }
 
