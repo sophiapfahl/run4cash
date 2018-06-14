@@ -20,7 +20,8 @@
         android:layout_below="@+id/horizontalScrollView"
         android:layout_alignLeft="@+id/horizontalScrollView"
         android:layout_alignStart="@+id/horizontalScrollView"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="14dp"
+        android:layout_gravity="start" />
 
     <!--<EditText-->
         <!--android:id="@+id/animalNicknameInputID"-->
@@ -81,7 +82,8 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/rabbit"
                 android:cropToPadding="true"
-                android:scaleType="center" />
+                android:scaleType="center"
+                />
 
             <ImageButton
                 android:id="@+id/imageBTNAnt"

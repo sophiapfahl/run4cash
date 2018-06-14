@@ -1,15 +1,10 @@
 package de.edvschule_plattling.trfi.testprojekt;
 
-import android.media.Image;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,12 +25,12 @@ public class Animal {
 
     private static int LEVELGRENZE = 20;
 
-
+    // TODO animalNickname (animalBreed = animalNickname)
     private String animalNickname = "";
     private String animalBreed = ""; // Tierrasse
     private String picName = "";
     private int steps = 0;
-    private List<String> fortschrittBilder = new ArrayList<>();
+    private List<String> fortschrittBilder = new ArrayList<>();   // Bildernamen als String
 
 
     public Animal(String pAnimalNickname, String pAnimalBreed, String pPicName, int pSteps, List<String> pFortschrittBilder){
@@ -53,10 +48,16 @@ public class Animal {
     public static String toJSON(Animal animal){
         JSONObject joAnimal = new JSONObject();
         try{
-            joAnimal.put("animalNickname", animal.getAnimalNickname());    // Hier wird der Key gespeichert
-            joAnimal.put("animalSteps", animal.getSteps());   // Hier wird der Value gespeichert
-            joAnimal.put("picName", animal.getPicName());
+            joAnimal.put("animalNickname", animal.getAnimalNickname());
+            joAnimal.put("animalSteps", animal.getSteps());
+            joAnimal.put("picName", animal.getPicName());       // aktuelles Bild
             joAnimal.put("animalBreed", animal.getAnimalBreed());
+            JSONArray jaBilder = new JSONArray();   // Liste von Bildnamen
+            int bildPos = 0;
+            for(String bildname : animal.getFortschrittBilder()){
+                jaBilder.put(bildPos++, bildname);
+            }
+            joAnimal.put("fortschrittBilder", jaBilder);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -73,6 +74,13 @@ public class Animal {
             a.setSteps(o.getInt("animalSteps"));
             a.setPicName(o.getString("picName"));
             a.setAnimalBreed(o.getString("animalBreed"));
+
+            List<String> bildnamen = new ArrayList<>();
+            JSONArray jaBilder = o.getJSONArray("fortschrittBilder");
+            for(int i=0; i<jaBilder.length(); i++){
+                bildnamen.add(jaBilder.getString(i));
+            }
+            a.setFortschrittBilder(bildnamen);
 
             return a;
         } catch (JSONException e) {
@@ -98,11 +106,10 @@ public class Animal {
         this.steps = steps;
 
 
-        // TODO
-        // TODO: fortschrittbilder befüllen
+        // TODO fortschrittbilder befüllen
         if(this.fortschrittBilder.size() > 0 ) {
             if (steps > 3*LEVELGRENZE) {
-                this.picName = this.fortschrittBilder.get(2);
+                this.picName = this.fortschrittBilder.get(2);    // potentieller nullpointer
             } else {
                 if(steps > LEVELGRENZE) {
                     this.picName = this.fortschrittBilder.get(1);
@@ -112,8 +119,10 @@ public class Animal {
 
 
 
-
     }
+
+
+
 
     public String getAnimalBreed() {
         return animalBreed;

@@ -91,12 +91,14 @@ public class StartActivity extends HilfsActivityClass {
         final SharedPreferences.Editor editor = sharedPrefUebersicht.edit();
         u = new User();
         u.setNickname(nicknameInputId.getText().toString()); // Eingabe des Nicknameeingefeldes in den neuen User speichern
-        u = loadAnimals(u);
-        if ((u.getAktuellerBegleiter() == null || u.getAktuellerBegleiter().equals(new Animal())) && !u.getAnimals().isEmpty())
-            for (Animal a : u.getAnimals().values()) {
-                u.setAktuellerBegleiter(a);
-                break;
-            }
+        u = loadAnimals(u);  // load animals liefert user zurück
+//        if ((u.getAktuellerBegleiter() == null || u.getAktuellerBegleiter().equals(new Animal())) && !u.getAnimals().isEmpty())
+//            for (Animal a : u.getAnimals().values()) {
+//                u.setAktuellerBegleiter(a);
+//                break;
+//            }
+
+        u.setAktuellerBegleiter(u.getAnimals().get("Kaninchen"));
         Log.e("DEBUG", u.toString());
         String newJsonUser = User.toJSON(u); // User zuruecksetzen
         Log.e("DEBUG", "newjsonuser:" + newJsonUser);
@@ -118,10 +120,14 @@ public class StartActivity extends HilfsActivityClass {
 
             bilder.clear();
             bilder.add("ant");
+            bilder.add("ant");
+            bilder.add("ant");
 
             u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0, bilder));
 
             bilder.clear();
+            bilder.add("lizard");
+            bilder.add("lizard");
             bilder.add("lizard");
             u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0, bilder));
         }

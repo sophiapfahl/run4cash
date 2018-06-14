@@ -3,11 +3,13 @@ package de.edvschule_plattling.trfi.testprojekt;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -46,22 +48,30 @@ public class TierAuswaehlen extends HilfsActivityClass {
 
 
         // Hier sollen die ImageButtons dynamisch zur ScrollView hinzugefuegt werden
-        for(String key : user.getAnimals().keySet()){
-            Toast.makeText(getApplicationContext(), "Neuer ImageButton wird gesetzt...", Toast.LENGTH_SHORT).show();
-            final String schluessel = key;
+        for(final String key : user.getAnimals().keySet()){
+
             ImageButton ib = new ImageButton(this);
             Drawable drawable = getResources().getDrawable(getResources().getIdentifier(user.getAnimals().get(key).getPicName(), "drawable", getPackageName()));
-            ib.setBackgroundDrawable(drawable);
-            ib.setAdjustViewBounds(true);
+
+            // Eigenschaften des ImageButtons setzen
+            // ib.setImageResource waere besser, da klappt das mit der Groesse, ich weis aber nicht,
+            //  was man da uebergeben muss
+            //ib.setBackgroundDrawable(drawable);
+            int id = getResources().getIdentifier(user.getAnimals().get(key).getPicName(), "drawable", getPackageName());
+            ib.setImageResource(id);
+            ib.setAdjustViewBounds(true);   // Das muesste eigentlich die Groesse richtig einstellen (?)
+            ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            // TODO xdfklsdfg
+            ib.setBackgroundColor(Color.TRANSPARENT);
             //ib.setCropToPadding(true); (geht nicht, braucht API 16 (unsere minSDKVersion ist 15))
             ib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    user.setAktuellerBegleiter(user.getAnimals().get(schluessel));
-                    Toast.makeText(getApplicationContext(), "Dein neuer Begleiter: " + user.getAnimals().get(schluessel).getAnimalNickname(), Toast.LENGTH_SHORT).show();
+                    user.setAktuellerBegleiter(user.getAnimals().get(key));
+                    Toast.makeText(getApplicationContext(), "Dein neuer Begleiter: " + user.getAnimals().get(key).getAnimalNickname(), Toast.LENGTH_SHORT).show();
                 }
             });
-            ll.addView(new ImageButton(this));
+            ll.addView(ib);
         }
 
 
