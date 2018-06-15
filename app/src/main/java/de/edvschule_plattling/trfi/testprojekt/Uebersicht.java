@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -177,11 +178,37 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         if(user.getSteps()%10 == 0) {
             user.setCapital(user.getCapital() + 1);
             capital.setText(user.umrechnen());
+            user.goldZufaelling();
+
+
         }
 
-        String neuesPic = user.getAktuellerBegleiter().updateSteps(user.getAktuellerBegleiter().getSteps() +1);   // Schritte des ausgewählten Tiers erhöhen
-        updateAnimalPic(neuesPic);
+
+
         animalSteps.setText("Schritte: " + user.getAktuellerBegleiter().getSteps());
+
+
+        if(user.getAktuellerBegleiter().updateSteps(user.getAktuellerBegleiter().getSteps() +1)) {
+            updateAnimalPic(user.getAktuellerBegleiter().getPicName());
+            MediaPlayer level = MediaPlayer.create(Uebersicht.this, R.raw.levelup);
+
+            level.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+
+                }
+            });
+
+            level.start();
+
+
+        }
+
+
+
 
 
     }

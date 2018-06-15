@@ -1,5 +1,6 @@
 package de.edvschule_plattling.trfi.testprojekt;
 
+import android.media.MediaPlayer;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,21 +107,25 @@ public class Animal {
         this.steps = steps;
     }
 
-    public String updateSteps(int steps) {
+    public boolean updateSteps(int steps) {
+        boolean b = false;
 
         this.setSteps(steps);
+
         // TODO fortschrittbilder befüllen
         if(this.fortschrittBilder.size() > 0 ) {
             if (steps > 3*LEVELGRENZE) {
                 this.picName = this.fortschrittBilder.get(2);    // potentieller nullpointer
+                b = true;
             } else {
                 if(steps > LEVELGRENZE) {
                     this.picName = this.fortschrittBilder.get(1);
+                    b = true;
                 }
             }
         }
 
-        return this.picName;
+        return b;
 
 
     }

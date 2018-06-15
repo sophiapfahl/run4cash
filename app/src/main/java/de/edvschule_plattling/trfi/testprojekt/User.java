@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import static java.util.Map.Entry;
@@ -245,5 +246,12 @@ public class User {
                 ", capital=" + capital +
                 ", counter=" + counter +
                 '}';
+    }
+
+    public void goldZufaelling() {
+
+        if(Math.random() > 0.9) {
+            setCapital(getCapital() + 100); // + 100 Kupfer --> 1 Gold
+        }
     }
 }
