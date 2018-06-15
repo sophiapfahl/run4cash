@@ -104,8 +104,11 @@ public class Animal {
 
     public void setSteps(int steps) {
         this.steps = steps;
+    }
 
+    public String updateSteps(int steps) {
 
+        this.setSteps(steps);
         // TODO fortschrittbilder befüllen
         if(this.fortschrittBilder.size() > 0 ) {
             if (steps > 3*LEVELGRENZE) {
@@ -117,6 +120,7 @@ public class Animal {
             }
         }
 
+        return this.picName;
 
 
     }

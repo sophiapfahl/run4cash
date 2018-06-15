@@ -64,5 +64,13 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/aktuellerBegleiterLabelID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSaveID"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
 
 </RelativeLayout>

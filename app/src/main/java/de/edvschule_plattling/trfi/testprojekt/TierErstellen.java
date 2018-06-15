@@ -32,7 +32,7 @@ public class TierErstellen extends HilfsActivityClass {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_animal);
+        setContentView(R.layout.activity_choose_animal);
 
         sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         resultTextView = (TextView) findViewById(R.id.ueberschriftTextViewID);

@@ -111,25 +111,24 @@ public class StartActivity extends HilfsActivityClass {
     public User loadAnimals(User u) {
 
         if (u.getAnimals().isEmpty()) {
-            List<String> bilder = new ArrayList<>();
-            bilder.add("rabbit");
-            bilder.add("ausbildungshase");
-            bilder.add("oberhase");
+            // Hier werden die Tiere initialisiert
+            List<String> rabbitPics = new ArrayList<>();
+            rabbitPics.add("rabbit");
+            rabbitPics.add("ausbildungshase");
+            rabbitPics.add("oberhase");
+            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit", 0, rabbitPics));
 
-            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit", 0, bilder));
+            List<String> antPics = new ArrayList<>();
+            antPics.add("ant");
+            antPics.add("ant");
+            antPics.add("ant");
+            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0, antPics));
 
-            bilder.clear();
-            bilder.add("ant");
-            bilder.add("ant");
-            bilder.add("ant");
-
-            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0, bilder));
-
-            bilder.clear();
-            bilder.add("lizard");
-            bilder.add("lizard");
-            bilder.add("lizard");
-            u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0, bilder));
+            List<String> lizardPics = new ArrayList<>();
+            lizardPics.add("lizard");
+            lizardPics.add("lizard");
+            lizardPics.add("lizard");
+            u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0, lizardPics));
         }
 
         return u;

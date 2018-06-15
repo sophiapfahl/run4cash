@@ -65,6 +65,7 @@ public class SimpleStepDetector {
             listener.step(timeNs);
             lastStepTimeNs = timeNs;
         }
+
         oldVelocityEstimate = velocityEstimate;
 
     }

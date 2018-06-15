@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -21,6 +22,7 @@ public class TierAuswaehlen extends HilfsActivityClass {
 
     private Button save;
     private LinearLayout ll;
+    private TextView aktuellerBegleiter;
     private SharedPreferences sharedPref;
     public static final String MY_PREF = "MYPREF";
     public static final String jsonTag = "jsonUser";
@@ -33,8 +35,9 @@ public class TierAuswaehlen extends HilfsActivityClass {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_animal);
 
-        sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
 
+        sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
+        aktuellerBegleiter = (TextView) findViewById(R.id.aktuellerBegleiterLabelID);
         save = (Button) findViewById(R.id.btnSaveID);
         ll = (LinearLayout) findViewById(R.id.linearLayoutID);
 
@@ -46,6 +49,7 @@ public class TierAuswaehlen extends HilfsActivityClass {
             Toast.makeText(getApplicationContext(), "Kein JSONObject gefunden!", Toast.LENGTH_SHORT).show();
         }
 
+        aktuellerBegleiter.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
 
         // Hier sollen die ImageButtons dynamisch zur ScrollView hinzugefuegt werden
         for(final String key : user.getAnimals().keySet()){
@@ -61,14 +65,15 @@ public class TierAuswaehlen extends HilfsActivityClass {
             ib.setImageResource(id);
             ib.setAdjustViewBounds(true);   // Das muesste eigentlich die Groesse richtig einstellen (?)
             ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            // TODO xdfklsdfg
+
             ib.setBackgroundColor(Color.TRANSPARENT);
             //ib.setCropToPadding(true); (geht nicht, braucht API 16 (unsere minSDKVersion ist 15))
             ib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     user.setAktuellerBegleiter(user.getAnimals().get(key));
-                    Toast.makeText(getApplicationContext(), "Dein neuer Begleiter: " + user.getAnimals().get(key).getAnimalNickname(), Toast.LENGTH_SHORT).show();
+                    aktuellerBegleiter.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
+
                 }
             });
             ll.addView(ib);

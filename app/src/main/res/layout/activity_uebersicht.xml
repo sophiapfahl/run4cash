@@ -132,4 +132,18 @@
         android:layout_marginRight="15dp"
         android:text="Zur Tierauswahl" />
 
+    <TextView
+        android:id="@+id/animalStepsID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tierNameID"
+        android:layout_alignEnd="@+id/btnTierauswahlID"
+        android:layout_alignLeft="@+id/gebdatID"
+        android:layout_alignRight="@+id/btnTierauswahlID"
+        android:layout_alignStart="@+id/gebdatID"
+        android:text="Schritte"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>

@@ -32,6 +32,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
     private TextView animalNickname;
     private TextView steps;
     private TextView capital;
+    private TextView animalSteps;
     private ImageView animalPic;
     private Button zurTierauswahl;
     private SharedPreferences sharedPref;
@@ -56,6 +57,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         animalPic = (ImageView) findViewById(R.id.tierBildID);
         capital = (TextView) findViewById(R.id.capitalID) ;
         zurTierauswahl = (Button) findViewById(R.id.btnTierauswahlID);
+        animalSteps = (TextView) findViewById(R.id.animalStepsID);
 
         sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
 
@@ -78,6 +80,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         zurTierauswahl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveCompleteUser();
                 Intent myIntent = new Intent(getApplicationContext(), TierAuswaehlen.class);
                 startActivity(myIntent);
             }
@@ -115,8 +118,14 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         //String animalMapKey = sharedPref.getString("animalNickname", "");
         animalNickname.setText(user.getAktuellerBegleiter().getAnimalNickname());
 
-//        // Holt Bild ueber eine ID, nicht direkt ueber den Pfad (Endung ist so auch irrelevant!)
-        Drawable drawable = getResources().getDrawable(getResources().getIdentifier(user.getAktuellerBegleiter().getPicName(), "drawable", getPackageName()));
+        updateAnimalPic(user.getAktuellerBegleiter().getPicName());
+
+        animalSteps.setText("Schritte: " + user.getAktuellerBegleiter().getSteps());
+    }
+
+    public void updateAnimalPic(String animalPicName) {
+        // Holt Bild ueber eine ID, nicht direkt ueber den Pfad (Endung ist so auch irrelevant!)
+        Drawable drawable = getResources().getDrawable(getResources().getIdentifier(animalPicName, "drawable", getPackageName()));
         animalPic.setImageDrawable(drawable);
     }
 
@@ -170,7 +179,11 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
             capital.setText(user.umrechnen());
         }
 
-        user.getAktuellerBegleiter().setSteps(user.getAktuellerBegleiter().getSteps() +1);   // Schritte des ausgewählten Tiers erhöhen
+        String neuesPic = user.getAktuellerBegleiter().updateSteps(user.getAktuellerBegleiter().getSteps() +1);   // Schritte des ausgewählten Tiers erhöhen
+        updateAnimalPic(neuesPic);
+        animalSteps.setText("Schritte: " + user.getAktuellerBegleiter().getSteps());
+
+
     }
 
 
