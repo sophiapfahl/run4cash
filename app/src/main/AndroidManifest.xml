@@ -20,7 +20,6 @@
         </activity>
 
         <activity android:name=".ProfilErstellen" android:label="Testprojekt"/>
-        <activity android:name=".TierErstellen" android:label="Testprojekt" />
         <activity android:name=".Uebersicht" android:label="Testprojekt"/>
         <activity android:name=".TierAuswaehlen" android:label="Testprojekt"/>
 

@@ -18,12 +18,6 @@ import java.util.List;
 public class Animal {
 
 
-    // Die Bezeichnung des Enumwertes (z.B. ANT) muss IMMER genauso heissen wie der Name des Bildes (ant)!
-    // Sonst tritt ein Fehler auf, wenn das Tier im TierErstellen geladen wird!
-//    RABBIT("rabbit", "Kaninchen"),
-//    ANT("ant", "Ameise"),
-//    LIZARD("lizard", "Echse");
-
     private static int LEVELGRENZE = 20;
 
     // TODO animalNickname (animalBreed = animalNickname)
@@ -113,17 +107,16 @@ public class Animal {
         this.setSteps(steps);
 
         // TODO fortschrittbilder befüllen
-        if(this.fortschrittBilder.size() > 0 ) {
-            if (steps > 3*LEVELGRENZE) {
+        if (this.fortschrittBilder.size() > 0) {
+            if (steps == 3 * LEVELGRENZE) {
                 this.picName = this.fortschrittBilder.get(2);    // potentieller nullpointer
                 b = true;
-            } else {
-                if(steps > LEVELGRENZE) {
-                    this.picName = this.fortschrittBilder.get(1);
-                    b = true;
-                }
+            } else if (steps == LEVELGRENZE) {
+                this.picName = this.fortschrittBilder.get(1);
+                b = true;
             }
         }
+
 
         return b;
 

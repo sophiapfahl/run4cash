@@ -67,7 +67,7 @@ public class ProfilErstellen extends HilfsActivityClass {
 
                 editor.commit();
 
-                // Mit diesem Intent wird "TierErstellen" aufgerufen
+                // Mit diesem Intent wird "TierAuswaehlen" aufgerufen
                 Intent myIntent = new Intent(getApplicationContext(), TierAuswaehlen.class);
 
                 startActivity(myIntent);

@@ -173,45 +173,28 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
     @Override
     public void step(long timeNs) {
         user.setSteps(user.getSteps() + 1);
-        steps.setText("Schritte: " + user.getSteps());
+        steps.setText("Deine Schritte: " + user.getSteps());
 
         if(user.getSteps()%10 == 0) {
             user.setCapital(user.getCapital() + 1);
+            MediaPlayer money = MediaPlayer.create(Uebersicht.this, R.raw.money);
+            money.setLooping(false);
+            money.start();
             capital.setText(user.umrechnen());
             user.goldZufaelling();
-
-
         }
 
 
-
-        animalSteps.setText("Schritte: " + user.getAktuellerBegleiter().getSteps());
-
-
+                        // updateSteps liefert boolean zurück
         if(user.getAktuellerBegleiter().updateSteps(user.getAktuellerBegleiter().getSteps() +1)) {
             updateAnimalPic(user.getAktuellerBegleiter().getPicName());
             MediaPlayer level = MediaPlayer.create(Uebersicht.this, R.raw.levelup);
-
-            level.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-
-                    mediaPlayer.reset();
-                    mediaPlayer.release();
-
-                }
-            });
-
+            level.setLooping(false);
             level.start();
-
-
         }
 
-
-
-
+        animalSteps.setText("Schritte: " + user.getAktuellerBegleiter().getSteps());
 
     }
-
 
 }

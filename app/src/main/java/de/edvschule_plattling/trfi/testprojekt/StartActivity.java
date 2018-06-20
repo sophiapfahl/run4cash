@@ -113,22 +113,22 @@ public class StartActivity extends HilfsActivityClass {
         if (u.getAnimals().isEmpty()) {
             // Hier werden die Tiere initialisiert
             List<String> rabbitPics = new ArrayList<>();
-            rabbitPics.add("rabbit");
-            rabbitPics.add("ausbildungshase");
-            rabbitPics.add("oberhase");
-            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit", 0, rabbitPics));
+            rabbitPics.add("rabbit01");
+            rabbitPics.add("rabbit02");
+            rabbitPics.add("rabbit03");
+            u.getAnimals().put("Kaninchen", new Animal("Kaninchen", "Kaninchen", "rabbit01", 0, rabbitPics));
 
             List<String> antPics = new ArrayList<>();
-            antPics.add("ant");
-            antPics.add("ant");
-            antPics.add("ant");
-            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant", 0, antPics));
+            antPics.add("ant01");
+            antPics.add("ant02");
+            antPics.add("ant03");
+            u.getAnimals().put("Ameise", new Animal("Ameise", "Ameise", "ant01", 0, antPics));
 
-            List<String> lizardPics = new ArrayList<>();
-            lizardPics.add("lizard");
-            lizardPics.add("lizard");
-            lizardPics.add("lizard");
-            u.getAnimals().put("Echse", new Animal("Echse", "Echse", "lizard", 0, lizardPics));
+            List<String> dogPics = new ArrayList<>();
+            dogPics.add("dog01");
+            dogPics.add("dog02");
+            dogPics.add("dog03");
+            u.getAnimals().put("Hund", new Animal("Hund", "Hund", "dog01", 0, dogPics));
         }
 
         return u;
