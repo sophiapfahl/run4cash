@@ -160,7 +160,7 @@ public class User {
             kupfer = capitalString.substring(capitalStringLaenge-1, capitalStringLaenge);
         }
 
-        return gold + " G  " + silber + " S  " + kupfer + " K";
+        return gold + " Gold  " + silber + " Silber  " + kupfer + " Kupfer";
     }
 
 

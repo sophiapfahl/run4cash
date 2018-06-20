@@ -113,7 +113,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
         Date userGebDat = new Date(user.getDateOfBirth().getTime());
         userGebDat.setYear(user.getDateOfBirth().getYear() - 1900);
         dateOfBirth.setText(sdf.format(userGebDat));
-        steps.setText("" + user.getSteps());
+        steps.setText("Deine Schritte: " + user.getSteps());
         capital.setText(user.umrechnen());
 
         //String animalMapKey = sharedPref.getString("animalNickname", "");
@@ -145,7 +145,7 @@ public class Uebersicht extends HilfsActivityClass implements SensorEventListene
     @Override
     public void onResume() {
         super.onResume();
-        steps.setText("Schritte: " + user.getSteps());
+        steps.setText("Deine Schritte: " + user.getSteps());
         capital.setText(user.umrechnen());
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
     }
