@@ -11,11 +11,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
+        android:gravity="start"
         android:text="Profil erstellen"
         android:textAlignment="textStart"
-        android:gravity="start"
         android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView

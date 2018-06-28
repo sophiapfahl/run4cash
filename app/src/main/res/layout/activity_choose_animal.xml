@@ -16,7 +16,7 @@
         android:layout_marginTop="36dp"
         android:text="Wähle deinen Begleiter"
         android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
 
@@ -33,6 +33,7 @@
         android:textColor="@android:color/background_light"
         android:textStyle="bold" />
 
+
     <ScrollView
         android:id="@+id/scrollViewID"
         android:layout_width="match_parent"
@@ -45,9 +46,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/orange"
-        android:layout_above="@+id/btnSaveID"
-        android:fadeScrollbars="false"
-        >
+        android:layout_above="@+id/aktuellerBegleiterLabelID"
+        android:fadeScrollbars="false" >
 
         <LinearLayout
             android:id="@+id/linearLayoutID"
@@ -59,10 +59,9 @@
             android:layout_marginTop="33dp"
             android:orientation="vertical">
 
-
-
         </LinearLayout>
     </ScrollView>
+
 
     <TextView
         android:id="@+id/aktuellerBegleiterLabelID"
@@ -70,7 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSaveID"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        android:textColor="@color/pink"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

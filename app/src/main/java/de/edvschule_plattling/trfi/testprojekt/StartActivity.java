@@ -2,15 +2,11 @@ package de.edvschule_plattling.trfi.testprojekt;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +25,6 @@ public class StartActivity extends HilfsActivityClass {
     private EditText nicknameInputId;
     private Button weiterButtonID;
     private SharedPreferences sharedPrefUebersicht;
-    public static final String MY_PREF = "MYPREF";
     public static final String jsonTag = "jsonUser";
 
 
@@ -40,74 +35,54 @@ public class StartActivity extends HilfsActivityClass {
 
         nicknameInputId = (EditText) findViewById(R.id.nicknameInputId);
         weiterButtonID = (Button) findViewById(R.id.weiterButtonID);
-        sharedPrefUebersicht = getApplicationContext().getSharedPreferences(Uebersicht.MY_PREF, MODE_PRIVATE);
+        sharedPrefUebersicht = getApplicationContext().getSharedPreferences(UebersichtActivity.MY_PREF, MODE_PRIVATE);
+        String jsonUser = sharedPrefUebersicht.getString(UebersichtActivity.jsonTag, "");
+        final User u = fromJSON(jsonUser);
+
+        if (u != null) {
+            // Falls schon ein User registriert ist, wird sofort die UebersichtActivity aufgerufen,
+            // damit der alte Spielstand nicht ueberschrieben werden kann
+            Intent intentUebersicht = new Intent(getApplicationContext(), UebersichtActivity.class);
+            startActivity(intentUebersicht);
+        }
 
         weiterButtonID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nicknameInput = nicknameInputId.getText().toString();
-
-                /*final SharedPreferences.Editor editor = sharedPrefUebersicht.edit();
-                Animal beg = new Animal("Kaninchen", "Kaninchen", "rabbit", 0);
-                u.addAnimal(beg.getAnimalNickname(), beg);
-                u.setAktuellerBegleiter(beg);
-                Log.e("DEBUG", User.toJSON(u));
-                editor.putString(jsonTag, User.toJSON(u));
-                editor.commit();*/
-
-                String jsonUser = sharedPrefUebersicht.getString(Uebersicht.jsonTag, "");
-                User u = new User();
-
-                u = fromJSON(jsonUser);
-
-           //     Log.e("DEBUG", u.toString());
-
-
-                Intent myIntent;
-
-                if (u == null) {
-                    // ist noch nicht angemeldet
-                    saveNewUser(u);
-                    myIntent = new Intent(getApplicationContext(), ProfilErstellen.class);
-                    Toast.makeText(getApplicationContext(), "Es ist noch kein User vorhanden!", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (nicknameInput.equals(u.getNickname())) {
-                        // ist schonmal angemeldet gewesen
-                        myIntent = new Intent(getApplicationContext(), Uebersicht.class);
-                    } else {
-                        saveNewUser(u);
-                        myIntent = new Intent(getApplicationContext(), ProfilErstellen.class);
-                        Toast.makeText(getApplicationContext(), "Leider kein passender User gefunden!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                startActivity(myIntent);
+                // Falls noch kein User registriert war, wird er nun gespeichert und er kann sein Profil erstellen
+                saveNewUser(u);
+                Intent intent = new Intent(getApplicationContext(), ProfilErstellenActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-
+    /**
+     * Hier wird der User in den SharedPreferences als JSON-String gespeichert,
+     * außerdem wird der default-Begleiter gesetzt (Hund)
+     *
+     * @param u der zu speichernde User
+     */
     public void saveNewUser(User u) {
         final SharedPreferences.Editor editor = sharedPrefUebersicht.edit();
         u = new User();
         u.setNickname(nicknameInputId.getText().toString()); // Eingabe des Nicknameeingefeldes in den neuen User speichern
-        u = loadAnimals(u);  // load animals liefert user zurück
-//        if ((u.getAktuellerBegleiter() == null || u.getAktuellerBegleiter().equals(new Animal())) && !u.getAnimals().isEmpty())
-//            for (Animal a : u.getAnimals().values()) {
-//                u.setAktuellerBegleiter(a);
-//                break;
-//            }
+        u = loadAnimals(u);  // loadAnimals() liefert einen user zurück, der dann alle drei Tiere hat
 
-        u.setAktuellerBegleiter(u.getAnimals().get("Kaninchen"));
-        Log.e("DEBUG", u.toString());
-        String newJsonUser = User.toJSON(u); // User zuruecksetzen
-        Log.e("DEBUG", "newjsonuser:" + newJsonUser);
+        u.setAktuellerBegleiter(u.getAnimals().get("Hund"));    // Der Hund wird als Defaultbegleiter gesetzt
+        String newJsonUser = User.toJSON(u);
         editor.putString(jsonTag, newJsonUser);
-        //editor.putString("animalNickname", "Jane"); // Nickname des Tiers zuruecksetzen
         editor.commit();
     }
 
 
+    /**
+     * Hier werden zu einem neuen User die drei Tiere, die jeder User zu Beginn hat, hinzugefügt
+     * (Hund, Kaninchen, Ameise)
+     *
+     * @param u der User, zu dem die Tiere hinzugefügt werden sollen
+     * @return der aktualisierte User
+     */
     public User loadAnimals(User u) {
 
         if (u.getAnimals().isEmpty()) {

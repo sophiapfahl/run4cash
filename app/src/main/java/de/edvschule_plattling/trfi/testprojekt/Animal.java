@@ -1,17 +1,16 @@
 package de.edvschule_plattling.trfi.testprojekt;
 
-import android.media.MediaPlayer;
-import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dieser Enum dient dazu, dem User verschiedene Tiere zur Auswahl zu stellen. Die Tiere haben eine Rasse
- *  (z.B. "Kaninchen") und den Namen des Bildes zu dem jeweiligen Tier ("rabbit").
- *  Es gibt Kaninchen, Ameisen und Echsen.
+ * Diese Klasse dient dazu, dem User verschiedene Tiere zur Auswahl zu stellen. Die Tiere haben eine Rasse
+ * und eine Liste der Namen der Bilder zu dem jeweiligen Tier.
+ * Außerdem werden die Schritte gespeichert.
  * Created by spfahl on 09.02.2018.
  */
 
@@ -20,15 +19,14 @@ public class Animal {
 
     private static int LEVELGRENZE = 20;
 
-    // TODO animalNickname (animalBreed = animalNickname)
     private String animalNickname = "";
-    private String animalBreed = ""; // Tierrasse
+    private String animalBreed = "";
     private String picName = "";
     private int steps = 0;
     private List<String> fortschrittBilder = new ArrayList<>();   // Bildernamen als String
 
 
-    public Animal(String pAnimalNickname, String pAnimalBreed, String pPicName, int pSteps, List<String> pFortschrittBilder){
+    public Animal(String pAnimalNickname, String pAnimalBreed, String pPicName, int pSteps, List<String> pFortschrittBilder) {
         this.animalNickname = pAnimalNickname;
         this.animalBreed = pAnimalBreed;
         this.picName = pPicName;
@@ -39,17 +37,22 @@ public class Animal {
     public Animal() {
     }
 
-
-    public static String toJSON(Animal animal){
+    /**
+     * In dieser Methode wird ein Tier in einen JSON-String umgewandelt.
+     *
+     * @param animal Das Tier, das in einen JSON-String umgewandelt werden soll
+     * @return Das Tier als JSON-String
+     */
+    public static String toJSON(Animal animal) {
         JSONObject joAnimal = new JSONObject();
-        try{
+        try {
             joAnimal.put("animalNickname", animal.getAnimalNickname());
             joAnimal.put("animalSteps", animal.getSteps());
             joAnimal.put("picName", animal.getPicName());       // aktuelles Bild
             joAnimal.put("animalBreed", animal.getAnimalBreed());
             JSONArray jaBilder = new JSONArray();   // Liste von Bildnamen
             int bildPos = 0;
-            for(String bildname : animal.getFortschrittBilder()){
+            for (String bildname : animal.getFortschrittBilder()) {
                 jaBilder.put(bildPos++, bildname);
             }
             joAnimal.put("fortschrittBilder", jaBilder);
@@ -60,9 +63,14 @@ public class Animal {
         return joAnimal.toString();
     }
 
-    public static Animal fromJSON(String json){
+    /**
+     * In dieser Methode soll ein JSON-String in ein Tier umgewandelt werden.
+     *
+     * @param json Der JSON-, der in ein Tier umgewandelt werden soll
+     * @return Das Tier, das aus dem JSON-String erzeugt wurde
+     */
+    public static Animal fromJSON(String json) {
         try {
-            Log.e("DEBUG", json);
             JSONObject o = new JSONObject(json);
             Animal a = new Animal();
             a.setAnimalNickname(o.getString("animalNickname"));
@@ -72,7 +80,7 @@ public class Animal {
 
             List<String> bildnamen = new ArrayList<>();
             JSONArray jaBilder = o.getJSONArray("fortschrittBilder");
-            for(int i=0; i<jaBilder.length(); i++){
+            for (int i = 0; i < jaBilder.length(); i++) {
                 bildnamen.add(jaBilder.getString(i));
             }
             a.setFortschrittBilder(bildnamen);
@@ -101,30 +109,27 @@ public class Animal {
         this.steps = steps;
     }
 
-    public boolean updateSteps(int steps) {
+    /**
+     * In dieser Methode werden die Schritte des Tiers aktualisiert. Gewinnt das Tier ein Level dazu,
+     * wird auch das Bild des Tiers geändert.
+     *
+     * @return ein Wahrheitswert, ob das Tier ein Level dazugewonnen hat
+     */
+    public boolean isLevelUp() {
         boolean b = false;
 
-        this.setSteps(steps);
-
-        // TODO fortschrittbilder befüllen
         if (this.fortschrittBilder.size() > 0) {
-            if (steps == 3 * LEVELGRENZE) {
-                this.picName = this.fortschrittBilder.get(2);    // potentieller nullpointer
+            if (this.getSteps() == 3 * LEVELGRENZE && this.fortschrittBilder.size() >= 2) {
+                this.picName = this.fortschrittBilder.get(2);
                 b = true;
-            } else if (steps == LEVELGRENZE) {
+            } else if (this.getSteps() == LEVELGRENZE && this.fortschrittBilder.size() >= 1) {
                 this.picName = this.fortschrittBilder.get(1);
                 b = true;
             }
         }
 
-
         return b;
-
-
     }
-
-
-
 
     public String getAnimalBreed() {
         return animalBreed;

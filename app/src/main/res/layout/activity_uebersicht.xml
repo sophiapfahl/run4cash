@@ -9,22 +9,21 @@
         android:id="@+id/profilUeberschriftID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/logoID"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:text="Dein Profil"
         android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/accountUeberschriftID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/stepsId"
-        android:layout_marginTop="64dp"
+        android:layout_alignLeft="@+id/capitalID"
+        android:layout_alignStart="@+id/capitalID"
+        android:layout_below="@+id/capitalID"
+        android:layout_marginTop="16dp"
         android:text="Dein Account"
         android:textColor="@color/pink"
         android:textStyle="bold" />
@@ -39,8 +38,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif"
         android:text="nickname"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -51,6 +49,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/nicknameID"
         android:layout_marginTop="32dp"
+        android:layout_marginLeft="15dp"
         android:text="Dein Tier"
         android:textColor="@color/pink"
         android:textStyle="bold" />
@@ -65,8 +64,7 @@
         android:layout_marginTop="21dp"
         android:fontFamily="sans-serif"
         android:text="animalnickname"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -75,24 +73,25 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/tierNameID"
+        android:layout_above="@id/btnTierauswahlID"
         android:layout_alignLeft="@+id/tierNameID"
-        android:layout_alignStart="@+id/tierNameID" />
+        android:layout_alignStart="@+id/tierNameID"/>
 
     <TextView
         android:id="@+id/gebdatID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="gebdat"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_alignBaseline="@+id/nicknameID"
         android:layout_alignBottom="@+id/nicknameID"
         android:layout_alignLeft="@+id/profilUeberschriftID"
         android:layout_alignStart="@+id/profilUeberschriftID"
         android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp" />
+        android:layout_marginStart="50dp"
+        android:text="gebdat"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/stepsId"
@@ -101,10 +100,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/profilUeberschriftID"
-        android:layout_marginTop="55dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="24dp"
         android:text="Schritte"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -114,10 +113,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/stepsId"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:text="Capital"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <Button
@@ -127,10 +126,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignStart="@id/tierBildID"
+        android:layout_alignLeft="@id/tierBildID"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:text="Zur Tierauswahl" />
+        android:background="@color/orange"
+        android:text="Zur Tierauswahl"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/animalStepsID"
@@ -142,8 +145,7 @@
         android:layout_alignRight="@+id/btnTierauswahlID"
         android:layout_alignStart="@+id/gebdatID"
         android:text="Schritte"
-        android:textColor="@color/pink"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

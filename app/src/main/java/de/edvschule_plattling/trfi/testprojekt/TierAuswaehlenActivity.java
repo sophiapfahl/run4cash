@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,13 +17,12 @@ import android.widget.Toast;
  * Created by spfahl on 18.05.2018.
  */
 
-public class TierAuswaehlen extends HilfsActivityClass {
+public class TierAuswaehlenActivity extends HilfsActivityClass {
 
-    private Button save;
-    private LinearLayout ll;
-    private TextView aktuellerBegleiter;
+    private Button saveBtn;
+    private LinearLayout linearLayout;
+    private TextView aktuellerBegleiterTV;
     private SharedPreferences sharedPref;
-    public static final String MY_PREF = "MYPREF";
     public static final String jsonTag = "jsonUser";
 
     private User user;
@@ -36,51 +34,47 @@ public class TierAuswaehlen extends HilfsActivityClass {
         setContentView(R.layout.activity_choose_animal);
 
 
-        sharedPref = getApplicationContext().getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
-        aktuellerBegleiter = (TextView) findViewById(R.id.aktuellerBegleiterLabelID);
-        save = (Button) findViewById(R.id.btnSaveID);
-        ll = (LinearLayout) findViewById(R.id.linearLayoutID);
+        sharedPref = getApplicationContext().getSharedPreferences(UebersichtActivity.MY_PREF, Context.MODE_PRIVATE);
+        aktuellerBegleiterTV = (TextView) findViewById(R.id.aktuellerBegleiterLabelID);
+        saveBtn = (Button) findViewById(R.id.btnSaveID);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutID);
 
         // Daten vom letzten Speichern laden
         user = new User();
-        if(User.fromJSON(sharedPref.getString(jsonTag, "")) != null){
+        if (User.fromJSON(sharedPref.getString(jsonTag, "")) != null) {
             user = loadData();
         } else {
             Toast.makeText(getApplicationContext(), "Kein JSONObject gefunden!", Toast.LENGTH_SHORT).show();
         }
 
-        aktuellerBegleiter.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
+        aktuellerBegleiterTV.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
 
-        // Hier sollen die ImageButtons dynamisch zur ScrollView hinzugefuegt werden
-        for(final String key : user.getAnimals().keySet()){
+        // Hier werden die ImageButtons dynamisch zur ScrollView hinzugefuegt
+        for (final String key : user.getAnimals().keySet()) {
 
             ImageButton ib = new ImageButton(this);
-            Drawable drawable = getResources().getDrawable(getResources().getIdentifier(user.getAnimals().get(key).getPicName(), "drawable", getPackageName()));
 
             // Eigenschaften des ImageButtons setzen
-            // ib.setImageResource waere besser, da klappt das mit der Groesse, ich weis aber nicht,
-            //  was man da uebergeben muss
-            //ib.setBackgroundDrawable(drawable);
             int id = getResources().getIdentifier(user.getAnimals().get(key).getPicName(), "drawable", getPackageName());
             ib.setImageResource(id);
-            ib.setAdjustViewBounds(true);   // Das muesste eigentlich die Groesse richtig einstellen (?)
+            ib.setAdjustViewBounds(true);
             ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             ib.setBackgroundColor(Color.TRANSPARENT);
-            //ib.setCropToPadding(true); (geht nicht, braucht API 16 (unsere minSDKVersion ist 15))
+
             ib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     user.setAktuellerBegleiter(user.getAnimals().get(key));
-                    aktuellerBegleiter.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
+                    aktuellerBegleiterTV.setText("Dein aktueller Begleiter: " + user.getAktuellerBegleiter().getAnimalNickname());
 
                 }
             });
-            ll.addView(ib);
+            linearLayout.addView(ib);
         }
 
 
-        save.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final SharedPreferences.Editor editor = sharedPref.edit();
@@ -89,7 +83,7 @@ public class TierAuswaehlen extends HilfsActivityClass {
                 editor.putString(jsonTag, jsonUser);
 
                 editor.commit();
-                Intent myIntent = new Intent(getApplicationContext(), Uebersicht.class);
+                Intent myIntent = new Intent(getApplicationContext(), UebersichtActivity.class);
 
                 startActivity(myIntent);
             }
@@ -98,7 +92,12 @@ public class TierAuswaehlen extends HilfsActivityClass {
     }
 
 
-    public User loadData(){
+    /**
+     * Der User vom letzten Speichern wird geladen
+     *
+     * @return der geladene User
+     */
+    public User loadData() {
         return User.fromJSON(sharedPref.getString(jsonTag, ""));
     }
 

@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfilErstellen" android:label="Testprojekt"/>
-        <activity android:name=".Uebersicht" android:label="Testprojekt"/>
-        <activity android:name=".TierAuswaehlen" android:label="Testprojekt"/>
+        <activity android:name=".ProfilErstellenActivity" android:label="Testprojekt"/>
+        <activity android:name=".UebersichtActivity" android:label="Testprojekt"/>
+        <activity android:name=".TierAuswaehlenActivity" android:label="Testprojekt"/>
 
     </application>
 
